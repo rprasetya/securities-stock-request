@@ -40,7 +40,7 @@ const DashboardContent = () => {
     return(
         <div className="flex flex-col gap-5">
             <h1 className="text-xl">Dashboard Mandiri</h1>
-            <div className="text-black grid grid-cols-2 gap-8">
+            <div className="text-black grid grid-cols-2 gap-8 mr-40">
                 {items.map((item) => (
                     <Link key={item.title} href={item.url} className="grid grid-cols-1 gap-9 justify-items-center bg-white shadow-lg px-24 py-10 rounded-3xl">
                         <Image

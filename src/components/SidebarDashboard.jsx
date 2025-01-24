@@ -19,6 +19,7 @@ import {
     SidebarFooter
   } from "@/components/ui/sidebar"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 
   const items = [
     {
@@ -48,22 +49,26 @@ import Link from "next/link"
   ]
 
 const SidebarDashboard = () => {
+    const pathname = usePathname();
+
     return(
         <Sidebar>
             <SidebarContent>
                 <SidebarGroup>
                 <SidebarGroupLabel className="flex justify-center py-14">
-                    <Image
-                        src={logo_mandiri}
-                        width={130}
-                        alt="logo mandiri"
-                    />
+                    <Link href="/dashboard">
+                        <Image
+                            src={logo_mandiri}
+                            width={130}
+                            alt="logo mandiri"
+                        />
+                    </Link>
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                     <SidebarMenu>
                     {items.map((item) => (
                         <SidebarMenuItem key={item.title} className="mx-8">
-                            <SidebarMenuButton asChild className="hover:bg-personal-hover">
+                            <SidebarMenuButton asChild className={`hover:bg-personal-hover ${pathname.startsWith(item.url) ? 'bg-personal-hover text-personal-button' : ''}`}>
                                 <Link href={item.url}>
                                     <Image
                                         src={item.icon}

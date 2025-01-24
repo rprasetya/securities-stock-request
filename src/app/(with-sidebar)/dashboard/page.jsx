@@ -3,7 +3,7 @@ import SidebarDashboard from "@/components/SidebarDashboard"
 
 const Page = () => {
     return(
-        <div className="ml-7 mt-14">
+        <div className="mx-7 mt-14">
             <DashboardContent/>
         </div>
     )

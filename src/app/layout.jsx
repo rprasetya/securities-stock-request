@@ -16,14 +16,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins} antialiased`}>
-        <SidebarProvider>
-          <SidebarDashboard />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+      <body className={`${poppins} antialiased w-screen`}>
+        {children}
       </body>
     </html>
   );
