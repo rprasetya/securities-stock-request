@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
+
 const LoginForm = () => {
     const router = useRouter();
 
@@ -25,34 +26,53 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast()
 
-    const handleSubmit = (e) => {
-        setIsLoading(true)
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+      
         const formData = new FormData(e.target);
-        const username = formData.get('username');
-        const password = formData.get('password');
-
-        const user = accounts.find((u) => u.username === username && u.password === password);
-
-        if (user) {
-            toast({
+        const username = formData.get("username");
+        const password = formData.get("password");
+      
+        try {
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),
+            });
+        
+            const result = await response.json();
+        
+            if (response.ok) {
+                localStorage.setItem("authToken", result.token);
+        
+                toast({
                 title: "Login Berhasil",
                 description: "Selamat Datang!",
-              })
-            setTimeout(() => {
-                router.push('/dashboard');
-            }, 2000);
-        } else {
-            toast({
-                variant:"destructive",
+                });
+        
+                setTimeout(() => router.push("/dashboard"), 500);
+            } else {
+                toast({
+                variant: "destructive",
                 title: "Login Gagal",
-                description: "Username atau password salah",
-              })
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000);
+                description: result.error,
+                });
+            }
+        } catch (error) {
+            console.error("Kesalahan saat login:", error);
+            toast({
+                variant: "destructive",
+                title: "Terjadi Kesalahan",
+                description: "Gagal memproses login.",
+            });
+        } finally {
+            setIsLoading(false);
         }
-    };
+      };
+
     return(
         <div className="flex flex-col items-center">
             <Image

@@ -20,11 +20,13 @@ import {
   } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import { Button } from "./ui/button"
+
 
   const items = [
     {
       title: "Tabungan",
-      url: "/tabungan",
+      url: "/dashboard/tabungan",
       icon: tabungan,
       alt: "tabungan",
     },
@@ -49,7 +51,13 @@ import { usePathname, useRouter } from "next/navigation"
   ]
 
 const SidebarDashboard = () => {
+    const router = useRouter()
     const pathname = usePathname();
+
+    const handleSignOut = () => {
+        localStorage.removeItem("authToken");
+        router.push("/login");
+    };
 
     return(
         <Sidebar>
@@ -92,13 +100,13 @@ const SidebarDashboard = () => {
                         />
                         <span>Pengaturan</span>
                     </Link>
-                    <Link href={'#'} className="flex gap-2 items-center p-2 hover:bg-personal-hover rounded-md">
+                    <button onClick={handleSignOut} className="flex gap-2 items-center p-2 hover:bg-personal-hover rounded-md">
                         <Image
                             src={keluar}
                             alt="keluar"
                         />
                         <span>Keluar</span>
-                    </Link>
+                    </button>
                 </div>
             </SidebarFooter>
         </Sidebar>

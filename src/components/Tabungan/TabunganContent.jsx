@@ -77,7 +77,7 @@ const TabunganContent = () => {
                 </Table>  
             </div>
             <div className="flex justify-center mt-3">
-                <Link href="/tabungan/permintaan">
+                <Link href="/dashboard/tabungan/permintaan">
                     <Button className="bg-personal-backgroundButton text-personal-button w-fit shadow-none font-normal text-xs px-10 rounded hover:bg-personal-backgroundButton hover:bg-opacity-60">Kirim</Button>
                 </Link>
             </div>
