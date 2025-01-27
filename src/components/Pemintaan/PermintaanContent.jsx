@@ -4,6 +4,7 @@ import { Button } from "../ui/button"
 import logo_mandiri from "@/assets/logo_mandiri.svg"
 import kembali from "@/assets/permintaan/icon/kembali.svg"
 import Link from "next/link"
+import { useData } from "@/app/context/DataContext";
 import {
     Table,
     TableBody,
@@ -14,34 +15,9 @@ import {
 } from "@/components/ui/table"
 import { useRouter } from "next/navigation"
 
-const securities = [
-    {
-        no: 1,
-        tanggal: "Senin, 20 Januari 2025",
-        namaCabang: "KCP Malinau",
-        jenisSurat: "Buku Tabungan",
-        jumlah: "50",
-        keterangan: true,
-    },
-    {
-        no: 2,
-        tanggal: "Senin, 20 Januari 2025",
-        namaCabang: "KCP Malinau",
-        jenisSurat: "Kartu ATM",
-        jumlah: "100",
-        keterangan: true,
-    },
-    {
-        no: 3,
-        tanggal: "Senin, 20 Januari 2025",
-        namaCabang: "KCP Malinau",
-        jenisSurat: "Cek Giro",
-        jumlah: "20",
-        keterangan: true,
-    },
-]
 
 const PermintaanContent = () => {
+    const { securities } = useData();
     const router = useRouter();
     return(
         <div className="flex flex-col gap-3 mb-20">
@@ -101,21 +77,21 @@ const PermintaanContent = () => {
                         </TableHeader>
                         <TableBody>
                             {securities.map((security) => (
-                                <TableRow key={security.no} className="border-none text-xs">
-                                    <TableCell>{security.no}</TableCell>
-                                    <TableCell>{security.tanggal}</TableCell>
-                                    <TableCell>{security.namaCabang}</TableCell>
+                                <TableRow key={security.id} className="border-none text-xs">
+                                    <TableCell>{security.id}</TableCell>
+                                    <TableCell>{security.tanggal ? new Date(security.tanggal).toLocaleDateString('id-ID') : '-'}</TableCell>
+                                    <TableCell>{security.kantorCabang}</TableCell>
                                     <TableCell>{security.jenisSurat}</TableCell>
                                     <TableCell>{security.jumlah}</TableCell>
                                     <TableCell className="text-center">
                                         <span 
                                             className={`font-bold px-10 py-1 rounded ${
-                                                security.keterangan
+                                                security.keterangan === "Disetujui"
                                                 ? 'text-personal-agree font-normal bg-personal-backgroundAgree'
                                                 : 'text-red-700 bg-red-100'
                                             }`}
                                         >
-                                            {security.keterangan ? 'Disetujui' : 'Ditolak'}
+                                            {security.keterangan === "Disetujui" ? 'Disetujui' : 'Ditolak'}
                                         </span>
                                     </TableCell>
                                 </TableRow>

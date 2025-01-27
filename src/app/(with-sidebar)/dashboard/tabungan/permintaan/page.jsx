@@ -1,4 +1,4 @@
-import PermintaanContent from "@/components/Pemintaan/Permintaan Content"
+import PermintaanContent from "@/components/Pemintaan/PermintaanContent"
 
 const Page = () => {
     return(

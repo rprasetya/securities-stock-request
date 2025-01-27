@@ -1,4 +1,5 @@
 import "../globals.css";
+import { DataProvider } from "@/app/context/DataContext";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import SidebarDashboard from "@/components/SidebarDashboard";
 
@@ -8,7 +9,7 @@ export default function RootLayout({ children }) {
       <SidebarDashboard />
       <main className="w-full">
         <SidebarTrigger/>
-        {children}
+        <DataProvider>{children}</DataProvider>
       </main>
     </SidebarProvider>
   );
